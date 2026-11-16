@@ -276,6 +276,38 @@ For example, you can set each letter to different color by iterating it.
 
 .. _Ligature: https://en.wikipedia.org/wiki/Ligature_(writing)
 
+Crediting a source
+------------------
+
+If your scene presents a fact from a reference, you can use a short
+:class:`~.Text` credit and position it with :meth:`~.Mobject.to_corner`.
+This example credits the `NIST CODATA value for the speed of light in vacuum
+<https://physics.nist.gov/cuu/Constants/Value/c.html>`_.
+
+The preview below shows the final frame. When you render the scene as a video,
+:meth:`~.Scene.add_subcaption` puts the full source URL in a separate ``.srt``
+file alongside the video. Share that file with the video so viewers can load
+it as subtitles.
+
+.. manim:: SpeedOfLightCredit
+    :save_last_frame:
+
+    class SpeedOfLightCredit(Scene):
+        def construct(self):
+            fact = VGroup(
+                Text("Speed of light in vacuum", font_size=44),
+                Text("299 792 458 m/s", font_size=58),
+            ).arrange(DOWN)
+            credit = Text("Source: NIST CODATA", font_size=28).to_corner(UL)
+            self.add(fact, credit)
+
+            duration = 4
+            self.add_subcaption(
+                "NIST CODATA: https://physics.nist.gov/cuu/Constants/Value/c.html",
+                duration=duration,
+            )
+            self.wait(duration)
+
 Working with :class:`~.MarkupText`
 ==================================
 
